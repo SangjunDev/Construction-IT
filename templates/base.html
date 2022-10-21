@@ -12,11 +12,6 @@
     {% block style %}
     {% endblock %}
     
-    
-    <link
-            rel="stylesheet"
-            href="{% static 'css/history.css' %}">
-
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&amp;display=swap">
     <!-- Swiper slider-->
@@ -46,11 +41,11 @@
   <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   <body>
     
-    {% include 'blog/navbar.html' %}
+    {% include 'navbar.html' %}
     {% block content %}
     {% endblock %} 
 
-    {%include 'blog/footer.html'%}
+    {%include 'footer.html'%}
     <!-- JavaScript files-->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>

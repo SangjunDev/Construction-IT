@@ -1,5 +1,5 @@
 
-        {% extends "blog/base.html" %}
+        {%extends "base.html" %}
         {%load static %}
 
         {% block content %}
@@ -19,12 +19,12 @@
                         <div class="fixed-top" style="padding-top:100px">
                             <div class="row text-lg-center">
                                 <div class="col-lg-12">
-                                    <p class="h6 text-uppercase text-muted mb-3">Rohde & Schwarz Korea</p>
+                                    <p class="h6 text-uppercase text-muted mb-3">CNDI & Piloti</p>
                                     <h1
                                         class="hero-heading line-height-sm mb-2 title"
                                         data-swiper-parallax="-200"
                                         style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-                                        <font color="#FFFFF">로데슈바르즈 코리아</font>
+                                        <font color="#FFFFF"></font>
                                     </h1>
                                     <div class="row">
                                         <div class="col-lg-5 mx-auto">
@@ -32,8 +32,8 @@
                                                 class="font-weight-light text-muted mb-4 mt-3 subtitle"
                                                 data-swiper-parallax="-400"
                                                 style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; font-size:25px">
-                                                <font color="#FF3333">공식대리점</font>
-                                                <font color="#FFFFF">씨앤디아이</font>
+                                                <font color="#FF3333"></font>
+                                                <font color="#FFFFF"></font>
                                             </p>
                                         </div>
                                     </div>
@@ -74,69 +74,4 @@
                 </div>
             </section>
         {% endblock %} 
-
-        {% block body_static%}
-        <script>
-            $(document).ready(function () {
-                var layer = $('.layerPop');
-                var btnClose = $('.btn-close');
-                var edate = new Date("2017/11/27 08:00:00");
-      
-                //닫기버튼 누를시 하루동안 열지않기
-                cookiedata = document.cookie;
-      
-                if (Date.now() <= edate && cookiedata.indexOf("layerCookie=done") < 0) {
-                    layer.show();
-                } else {
-                    layer.hide();
-                }
-      
-                function setCookie(name, value, expiredays) {
-                    var todayDate = new Date();
-                    todayDate.setDate(todayDate.getDate() + expiredays);
-                    document.cookie = name + "=" + escape(value) + "; path=/; expires=" +
-                            todayDate.toGMTString() + ";"
-                }
-      
-                btnClose.on("click", function () {
-                    //expiredays의 1은 하루를 의미한다, 일주일은 7, 1년은 365로 입력
-                    setCookie("layerCookie", "done", 1);
-                    layer.fadeOut('fast');
-                })
-            });
-        </script>
-      
-        <script language="JavaScript">
-            //head 태그 안에 스크립트 선언
-            function setCookie(name, value, expiredays) {
-                var todayDate = new Date();
-                todayDate.setDate(todayDate.getDate() + expiredays);
-                document.cookie = name + "=" + escape(value) + "; path=/; expires=" +
-                        todayDate.toGMTString() + ";"
-            }
-            function closePop() {
-                if (document.pop_form.chkbox.checked) {
-                    setCookie("maindiv", "done", 1);
-                }
-                document
-                    .all['layer_popup']
-                    .style
-                    .visibility = "hidden";
-            }
-        </script>
-        <script language="Javascript">
-            cookiedata = document.cookie;
-            if (cookiedata.indexOf("maindiv=done") < 0) {
-                document
-                    .all['layer_popup']
-                    .style
-                    .visibility = "visible";
-            } else {
-                document
-                    .all['layer_popup']
-                    .style
-                    .visibility = "hidden";
-            }
-        </script>
-        {% endblock %}
- 
+        
