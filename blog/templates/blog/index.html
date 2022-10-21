@@ -1,0 +1,142 @@
+
+        {% extends "blog/base.html" %}
+        {%load static %}
+
+        {% block content %}
+        
+
+        <section>
+            <div
+                class="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
+                id="hero-slider">
+                <div
+                    class="swiper-wrapper"
+                    style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                    <div
+                        class="swiper-slide hero bg-center bg-cover d-flex align-items-center "
+                        style="background: url({% static 'img/banner.jpg' %}); width: 1088px; height:880px;">
+
+                        <div class="fixed-top" style="padding-top:100px">
+                            <div class="row text-lg-center">
+                                <div class="col-lg-12">
+                                    <p class="h6 text-uppercase text-muted mb-3">Rohde & Schwarz Korea</p>
+                                    <h1
+                                        class="hero-heading line-height-sm mb-2 title"
+                                        data-swiper-parallax="-200"
+                                        style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                                        <font color="#FFFFF">로데슈바르즈 코리아</font>
+                                    </h1>
+                                    <div class="row">
+                                        <div class="col-lg-5 mx-auto">
+                                            <p
+                                                class="font-weight-light text-muted mb-4 mt-3 subtitle"
+                                                data-swiper-parallax="-400"
+                                                style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; font-size:25px">
+                                                <font color="#FF3333">공식대리점</font>
+                                                <font color="#FFFFF">씨앤디아이</font>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section><br><br>
+      
+      
+            <section class="pb-5">
+                <div class="container p-5 bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7 mb-4 mb-lg-0">
+                            <h3>
+                                <span class="text-primary">ROHDE &amp; SCHWARZ
+                                </span>
+                                Contact Us</h3>
+                            <p class="text-small text-muted mb-0">더욱 자세한 제품 상담을 원하시면 제품문의 버튼을 눌러 문의 페이지로 이동 해주세요.</p>
+                        </div>
+                        <div class="col-lg-5">
+      
+                            <div >
+      
+                                <button
+                                    class="btn btn-primary btn-lg"
+                                    type="button"
+                                    onclick="location.href='/contact'"
+                                    style="float:right; border-radius: 5px;">Contact Us</button>
+                            </div>
+      
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endblock %} 
+
+        {% block body_static%}
+        <script>
+            $(document).ready(function () {
+                var layer = $('.layerPop');
+                var btnClose = $('.btn-close');
+                var edate = new Date("2017/11/27 08:00:00");
+      
+                //닫기버튼 누를시 하루동안 열지않기
+                cookiedata = document.cookie;
+      
+                if (Date.now() <= edate && cookiedata.indexOf("layerCookie=done") < 0) {
+                    layer.show();
+                } else {
+                    layer.hide();
+                }
+      
+                function setCookie(name, value, expiredays) {
+                    var todayDate = new Date();
+                    todayDate.setDate(todayDate.getDate() + expiredays);
+                    document.cookie = name + "=" + escape(value) + "; path=/; expires=" +
+                            todayDate.toGMTString() + ";"
+                }
+      
+                btnClose.on("click", function () {
+                    //expiredays의 1은 하루를 의미한다, 일주일은 7, 1년은 365로 입력
+                    setCookie("layerCookie", "done", 1);
+                    layer.fadeOut('fast');
+                })
+            });
+        </script>
+      
+        <script language="JavaScript">
+            //head 태그 안에 스크립트 선언
+            function setCookie(name, value, expiredays) {
+                var todayDate = new Date();
+                todayDate.setDate(todayDate.getDate() + expiredays);
+                document.cookie = name + "=" + escape(value) + "; path=/; expires=" +
+                        todayDate.toGMTString() + ";"
+            }
+            function closePop() {
+                if (document.pop_form.chkbox.checked) {
+                    setCookie("maindiv", "done", 1);
+                }
+                document
+                    .all['layer_popup']
+                    .style
+                    .visibility = "hidden";
+            }
+        </script>
+        <script language="Javascript">
+            cookiedata = document.cookie;
+            if (cookiedata.indexOf("maindiv=done") < 0) {
+                document
+                    .all['layer_popup']
+                    .style
+                    .visibility = "visible";
+            } else {
+                document
+                    .all['layer_popup']
+                    .style
+                    .visibility = "hidden";
+            }
+        </script>
+        {% endblock %}
+ 

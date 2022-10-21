@@ -1,0 +1,137 @@
+// Breadcrumbs
+.breadcrumb {
+    background: none;
+}
+
+
+// The dropdown menu
+.dropdown-menu {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Links, buttons, and more within the dropdown menu
+//
+// `<button>`-specific styles are denoted with `// For <button>s`
+.dropdown-item {
+    transition: all 0.3s;
+}
+
+
+
+// Navbar themes
+//
+// Styles for switching between navbars with light or dark background.
+
+// Dark links against a light background
+.navbar-light {
+
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-light-color;
+      font-size: 0.9rem;
+
+      &:hover,
+      &:focus {
+        color: $navbar-light-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-light-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .nav-link.active {
+      color: $navbar-light-active-color;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  .navbar-toggler {
+    color: $navbar-light-color;
+    border-color: $navbar-light-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: escape-svg($navbar-light-toggler-icon-bg);
+  }
+
+  .navbar-text {
+    color: $navbar-light-color;
+
+    a,
+    a:hover,
+    a:focus  {
+      color: $navbar-light-active-color;
+    }
+  }
+}
+
+
+
+.nav-tabs {
+  border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+
+  .nav-link {
+    margin-bottom: -$nav-tabs-border-width;
+    border: $nav-tabs-border-width solid transparent;
+    // @include border-top-radius($nav-tabs-border-radius);
+
+    &:hover,
+    &:focus {
+      // border-color: $nav-tabs-link-hover-border-color;
+    }
+
+    &.disabled {
+      color: $nav-link-disabled-color;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    color: $nav-tabs-link-active-color;
+    background-color: $nav-tabs-link-active-bg;
+    font-weight: $font-weight-bold;
+    border: none;
+    border-bottom: 2px solid $primary;
+  }
+
+  .dropdown-menu {
+    // Make dropdown border overlap tab border
+    margin-top: -$nav-tabs-border-width;
+    // Remove the top rounded corners here since there is a hard edge above the menu
+    @include border-top-radius(0);
+  }
+}
+
+.tabs-fill {
+    .nav-link {
+        border-bottom: none;
+    }
+    .nav-link.active,
+    .nav-item.show .nav-link {
+      color: white;
+      background-color: $primary;
+      font-weight: $font-weight-normal;
+      border-bottom: none;
+      // border-color: $nav-tabs-link-active-border-color;
+    }
+}
+
+
+// FORMS
+
+.form-control {
+
+  // Placeholder
+  &::placeholder {
+    color: $input-placeholder-color;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+    font-size: 0.9rem;
+  }
+
+
+}

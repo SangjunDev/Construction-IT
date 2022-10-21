@@ -1,0 +1,106 @@
+{%load static%}
+<!-- NAVBAR-->
+<nav
+    class="navbar navbar-expand-lg navbar-light py-2 py-lg-4 bg-white shadow-sm">
+    <div class="container">
+        <!-- Navbar brand-->
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'img/logo.png' %}" alt="Patrol online store" width="100"></a>
+            <!-- Navbar toggler-->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar collapse-->
+            <div
+                class="collapse navbar-collapse d-lg-flex align-items-lg-center justify-content-lg-between"
+                id="navbarSupportedContent">
+                <!-- Navbar menu right-->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item me-lg-3">
+                        <a class="nav-link text-uppercase active" aria-current="page" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item me-lg-3">
+                        <a class="nav-link text-uppercase" href="/about">about</a>
+                    </li>
+                    <li class="nav-item dropdown me-lg-3">
+                        <a
+                            class="nav-link text-uppercase dropdown-toggle"
+                            id="navbarDropdown"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">Product</a>
+                        <ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/shop/oscilloscope/">오실로스코프</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/metercounter/">미터 &amp; 카운터</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/powersupply/">직류 전원 공급장치</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/spectrumanalyzer/">신호 &amp; 스펙트럼 분석기</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/signalgenerator/">신호 발생기</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/networkanalyzer/">네트워크 분석기</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/audioanalyzer/">오디오 분석기</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/emc/">EMC</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/shop/powermeter/">파워 센서</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <!-- Navbar menu left-->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item dropdown me-lg-3">
+                        <a
+                            class="nav-link text-uppercase dropdown-toggle"
+                            id="navbarDropdown"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">support</a>
+                        <ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/support/notic">공지사항</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/support/faq">FAQ</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item me-lg-3">
+                        <a class="nav-link text-uppercase" href="/contact">Contact</a>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link text-uppercase" href="login.html">
+                        <svg class="svg-icon svg-icon-sm svg-icon-heavy">
+                          <use xlink:href="#user-1"> </use>
+                        </svg></a></li>       
+                </ul>
+                
+            </div>
+        </div>
+    </nav>

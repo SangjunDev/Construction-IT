@@ -1,0 +1,264 @@
+/*
+*
+* ===============================================================
+* NAVBAR
+* ===============================================================
+*
+*/
+
+.text-small {
+    font-size: 0.9rem !important;
+}
+
+.navbar {
+    transition: all 0.3s;
+    z-index: 999;
+
+    @include media-breakpoint-down(lg) {
+        background: white;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.07);
+    }
+
+    .dropdown-menu {
+        @include media-breakpoint-up(lg) {
+            display: block;
+        }
+        border-top: 2px solid $primary;;
+        visibility: hidden;
+        opacity:0;
+        transform: translateY(0.5rem);
+        transition:.2s ease all;
+        &.always-animated {
+             @include media-breakpoint-down(md) {
+                 display: block;
+             }
+        }
+    }
+
+    .dropdown-menu.show {
+        display: block;
+        visibility: visible;
+        opacity:1;
+        transform: translateY(0px);
+        transition:.2s ease all;
+    }
+
+    &.fixed-top.pushed {
+        background: #fff;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.07);
+        transform: translateY(-100%);
+    }
+
+    &-brand {
+        @include media-breakpoint-up(lg) {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .badge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family: $btn-font-family;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $primary !important;
+    color: #fff;
+    padding: 0;
+    opacity: 1 !important;
+    transition: all 0.3s;
+
+    &:hover {
+        background: darken($primary, 5%) !important;
+        color: #fff;
+    }
+}
+
+.modal-product-img {
+    min-height: 20rem;
+}
+
+/*
+*
+* ===============================================================
+* HERO
+* ===============================================================
+*
+*/
+.hero {
+    padding: 10rem 0 8rem;
+    @include media-breakpoint-up(lg) {
+        padding: 6rem 0;
+        min-height: 40rem;
+    }
+}
+
+.sub-hero {
+    padding: 9rem 0 5rem;
+    @include media-breakpoint-up(lg) {
+        padding: 3rem 0;
+        min-height: 20rem;
+    }
+}
+
+
+
+
+/*
+*
+* ===============================================================
+* HOMEPAGE
+* ===============================================================
+*
+*/
+.product-category {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+}
+
+.product {
+    position: relative;
+
+    .badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 999;
+    }
+
+    img {
+        transition: all 0.3s;
+    }
+
+    &:hover {
+        img {
+            opacity: 0.6;
+        }
+    }
+
+    &-btn {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        font-weight: $btn-font-weight;
+        background: #fff;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s;
+        z-index: 99;
+        opacity: 0;
+
+        &:hover {
+            background: $primary;
+            color: #fff;
+        }
+    }
+
+    &:hover {
+        .product-btn {
+            opacity: 1;
+            transform: none;
+        }
+
+        .cta {
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    .cta {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        transform: translateX(0.5rem);
+        opacity: 0;
+        transition: all 0.3s;
+    }
+
+    &-tabs {
+        .nav-link {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: $font-weight-bold;
+            color: $body-color;
+
+            &.active {
+                background: none;
+                color: $primary;
+            }
+        }
+    }
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    max-width: 6rem;
+    min-width: 6rem;
+    padding: 0.5rem 0;
+
+    &-outer {
+        max-width: 15rem;
+    }
+
+    button {
+        border: none;
+        width: 2rem;
+        min-width: 2rem;
+        height: 2rem;
+        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6rem;
+
+        &:focus, &:hover {
+            border: none;
+            outline: none
+        }
+    }
+
+    input {
+        text-align: center;
+    }
+}
+
+
+.payment-method {
+    padding: 1rem 0.5rem;
+    border: 1px solid $input-border-color;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-check {
+    &:checked + .payment-method {
+        background: $dark;
+        border-color: $dark;
+        color: #fff;
+    }
+}
+
+.method-panel {
+    display: none;
+    &.active {
+        display: block;
+    }
+}

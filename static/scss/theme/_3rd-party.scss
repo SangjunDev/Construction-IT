@@ -1,0 +1,130 @@
+/* ==========================================
+    SWIPER SLIDER
+   ========================================== */
+.swiper-button-prev, .swiper-button-next {
+    width: auto !important;
+    height: auto !important;
+    top: auto !important;
+    bottom: 0 !important;
+    color: $text-muted !important;
+    background: $light !important;
+    transition: all 0.3s;
+
+    &::after {
+        display: none;
+    }
+
+    &:hover {
+        background: $primary !important;
+        color: #fff !important;
+    }
+}
+
+.swiper-divider {
+    font-size: 0.7rem;
+    color: #aaa;
+}
+
+.swiper-button-prev {
+    left: 50% !important;
+    transform: translateX(-102%);
+    right: auto !important;
+}
+
+.swiper-button-next {
+    right: 50% !important;
+    transform: translateX(102%);
+    leftt: auto !important;
+}
+
+.swiper-button-disabled {
+    opacity: 0.5 !important;
+}
+
+.swiper-thumbnails {
+    .swiper-slide {
+        img {
+            opacity: 0.7 !important;
+            transition: all 0.3s !important;
+            cursor: pointer !important;
+        }
+
+        &-thumb-active {
+            img {
+                opacity: 1 !important;
+            }
+        }
+    }
+}
+
+
+/* ==========================================
+    CHOICES.JS
+   ========================================== */
+.choices {
+    min-width: 14rem !important;
+}
+
+.choices__list--dropdown .choices__item--selectable {
+    padding-right: 3rem !important;
+}
+
+.choices__inner {
+    padding: $input-padding-y ($input-padding-x * 1.5) !important;
+    min-height: $input-height !important;
+    border-radius: 0 !important;
+    background-color: #fff !important;
+    border-color: $input-border-color !important;
+}
+
+.choices__list--single {
+    padding: 2px !important;
+}
+
+
+/* ==========================================
+    NOUI RANGE SLIDER
+   ========================================== */
+.noUi-horizontal {
+    height: 3px !important;
+}
+
+.noUi-target {
+    background-color: $gray-200 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.noUi-connect {
+    background: $dark !important;;
+}
+
+.noUi-handle {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background: $dark !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: pointer !important;
+    top: -4px !important;
+    right: -8px !important;
+
+    &::before, &::after {
+        display: none !important;
+    }
+
+    &:hover, &:focus {
+        outline: none !important;
+        border: none !important;
+    }
+}
+
+
+.noUi-tooltip {
+    display: block !important;
+    font-weight: bold !important;
+    border: none !important;
+    padding: 3px 5px !important;
+    font-size: 0.7rem !important;
+}
