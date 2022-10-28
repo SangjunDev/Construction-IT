@@ -7,3 +7,9 @@ def index(request):
     request, 
     'blog/index.html'
   )
+  
+def about(request):
+  return render(
+    request, 
+    'blog/about.html'
+  )  

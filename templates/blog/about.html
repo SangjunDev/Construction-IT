@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{%load static %}
+
+{% block content %}
+
+<div class="bg-light py-2">
+  <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 bg-light">
+              <li class="breadcrumb-item">
+                  <a class="reset-anchor" href="/">Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">About</li>
+          </ol>
+      </nav>
+  </div>
+</div><br><br>
+
+<section class="pb-5">
+  <div class="container">
+      <div class="row">
+          <!-- Item information-->
+          <div class="col-xl-10 mx-auto">
+              <ul
+                  class="nav nav-tabs tabs-fill justify-content-center border-0 flex-column flex-md-row"
+                  id="myTab"
+                  role="tablist">
+                  <li class="nav-item flex-fill text-center bg-light mx-2" role="presentation">
+                      <a
+                          class="nav-link text-small fw-bold py-3 border-0 active"
+                          id="description-tab"
+                          data-bs-toggle="tab"
+                          href="#description"
+                          role="tab"
+                          aria-controls="description"
+                          aria-selected="true">회사 소개</a>
+                  </li>
+                  <li class="nav-item flex-fill text-center bg-light mx-2" role="presentation">
+                      <a
+                          class="nav-link text-small fw-bold py-3 border-0"
+                          id="info-tab"
+                          data-bs-toggle="tab"
+                          href="#info"
+                          role="tab"
+                          aria-controls="info"
+                          aria-selected="false">회사 연혁</a>
+                  </li>
+                  <li class="nav-item flex-fill text-center bg-light mx-2" role="presentation">
+                      <a
+                          class="nav-link text-small fw-bold py-3 border-0"
+                          id="reviews-tab"
+                          data-bs-toggle="tab"
+                          href="#reviews"
+                          role="tab"
+                          aria-controls="reviews"
+                          aria-selected="false">오시는길</a>
+                  </li>
+              </ul>
+
+              <div class="tab-content" id="myTabContent">
+                  <div
+                      class="tab-pane fade show active"
+                      id="description"
+                      role="tabpanel"
+                      aria-labelledby="description-tab">
+                      <div class="p-3 p-md-5">
+                          
+
+                          <h3 class="mb-4">CNDI는 2001년 설립이래,</h3><br>
+                          <p class="text-muted mb-4"  style = "font-size:18px">주요 보유 기술인 임베디드 기반의 제어,고정밀 파워설계,통신,센서 네트워크 기술을 가지고 스마트환경 모니터링 시스템,스마트 홈네트워크, OLED/TFT LCD 모듈 테스트 장비용 고정밀파워/계측 모듈 등을 개발하여, 우리의 환경을 보다 깨끗하고,편리하게 만들어주는 창의적 기업의 소명을 다하기 위해 노력하며,아울러 축적된 다양한 실질 기술들을 IT관련 연구실험장비 및 기술교육 사업을 통하여 사회에 환원합니다.</p><br>
+                          <div class="row align-items-center mb-4">
+                              <div class="col-lg-12 mb-12">
+                                  <img class="img-fluid" src="{%static 'img\info_img_01.jpg'%}" alt="..">
+                              </div>
+                          </div><br><br><br>
+
+
+                          <h3 class="mb-4">CNDI가 보유하고 있고, 계속 노력하고 있는 분야는</h3><br>
+
+                          <div class="row align-items-center mb-4">
+                              <div class="col-lg-4 mb-4 mb-lg-0 col-4" style="height:180px">
+                                  <img class="img-fluid" src="{%static 'img\info_img_02.jpg'%}" alt=".."><br>
+                                  ARM Core 기반의 임베디드 시스템의 Linux/ Windows/ Android 를 이용한<br> 신뢰도 높은 제어시스템</div>
+                              <div class="col-lg-4 mb-4 mb-lg-0 col-4" style="height:auto">
+                                  <img class="img-fluid" src="{%static 'img\info_img_03.jpg'%}" alt=".."><br>
+                                  OLED/ TFT 모듈 검사장비용<br> 고정밀 파워 및 측정솔루션 분야</div>
+                              <div class="col-lg-4 col-4" style="height:auto">
+                                  <img class="img-fluid" src="{%static 'img\info_img_04.jpg'%}" alt=".."><br>
+                                  축적된 임베디드/아날로그.디지털 기술들을 <br>망라한 IT 관련 교육사업을 통한 기여</div>
+                          </div><br>
+                          <p class="text-muted mb-4" style = "font-size:18px;">이상의 여러 요소기술간의 신뢰도 높은 융복합 설계, 제작, 유지보수를 통해 최상의 안정된 시스템 설계기술을 가지고 있으며, 더욱 개선된 휴먼 친화적 솔루션 개발을 위하여 새로운 기술의 도입 및 연구에 최선을 다하고 있는 창의적 설계 그룹입니다.</p>
+                   </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+                      <div class="p-3 p-md-5">
+
+                          <div class="history">
+
+                              <div>
+                                <h2>2019</h2>
+                                <ol>
+                                  <li>LH 공사 세종시 스마트시티 시범 단지 내 1100세대에 최초로 무선조명네트워크스위치 설치 계약</li>
+                                  <br>
+                                  <li>헬스케어, 인공지능 Voice&amp;Vision 실험 플랫폼 개발</li>
+                                  
+                                 </ol>
+                              </div>
+                           
+                              <div>
+                                <h2>2018</h2>
+                                <ol>
+                                  <li>LH공사 “스마트시티를 위한 신기술”에 “ 대기전력차단기능을 포함한 무선 조명 네트워크스위치” 채택</li>
+                                  <br>
+                                  <li>스마트비상벨/스마트원패스 통합시스템 개발 및 설치</li>
+                                </ol>
+                              </div>
+
+                              <div>
+                                  <h2>2017</h2>
+                                  <ol>
+                                    <li>OLED 모듈 검사 장비용 고정밀 파워서플라이/계측 모듈 개발 및 납품</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2014~2016</h2>
+                                  <ol>
+                                    <li>TFT LCD 검사 장비용 고정밀 파워서플라이 및 계측 모듈 개발 및 납품</li>
+                                    <br>
+                                    <li>건설현장 안전 관리용 다자간 무선통신기 개발 및 납품</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2013</h2>
+                                  <ol>
+                                    <li>환경공단 강우설량계 개발 및 설치</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2012</h2>
+                                  <ol>
+                                    <li>리눅스/안드로이드 임베디드 실습장비 외 다수 출시/군전용선 암호화 가입자장치 개발</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2011</h2>
+                                  <ol>
+                                    <li>무선스위치 개발 및 대우건설 15000 세대 설치</li>
+                                    <br>
+                                    <li>환경관리공단 환경감시 RTU 망 개발 및 152개소 설치</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2010</h2>
+                                  <ol>
+                                    <li>대우건설 에너지 제로하우스 통합시스템/ 식약청 종합 상황실 구축</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2009</h2>
+                                  <ol>
+                                    <li>아시아나 IDT 협력업체 등록</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2006~2009</h2>
+                                  <ol>
+                                    <li>월패드형 홈네트워크 최초 개발 및 18000세대 설치</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2005</h2>
+                                  <ol>
+                                    <li>1등급.특등급용 멀티플렉서 개발 및 납품</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2004</h2>
+                                  <ol>
+                                    <li>국방 네트워크 보안장비 개발 및 납품</li>
+                                  </ol>
+                                </div>
+
+                                <div>
+                                  <h2>2003</h2>
+                                  <ol>
+                                    <li>임베디드 기반의 홈네트웍 시스템 개발 및 대우건설 최초 설치</li>
+                                  </ol>
+                                </div>
+                           
+                              <div>
+                                <h2>2001</h2>
+                                <ol>
+              
+                                  <li>대우통신 종합연구소 연구원들 주축으로 설립</li>
+                                  
+                                </ol>
+                              </div>
+                           
+                           </div>
+                          
+
+                      </div>
+                  </div>
+
+                  <div
+                      class="tab-pane fade"
+                      id="reviews"
+                      role="tabpanel"
+                      aria-labelledby="reviews-tab">
+                      <div class="p-3 p-md-5">
+                        <div id="map" style="width:100%;height:500px;"></div>
+                  </div>
+              </div>
+          </section>
+{% endblock %} 
+
+{%block body_static%}
+<script
+                            type="text/javascript"
+                            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a17832ffaa0da5589c872744fea9178f"></script>
+                        <script>
+                            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                                mapOption = {
+                                    center: new kakao
+                                        .maps
+                                        .LatLng(37.4179797648987, 126.8183052855437 ), // 지도의 중심좌표
+                                    level: 3 // 지도의 확대 레벨
+                                };
+
+                            var map = new kakao
+                                .maps
+                                .Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                            // 마커가 표시될 위치입니다
+                            var markerPosition = new kakao
+                                .maps
+                                .LatLng(37.4179797648987, 126.8183052855437);
+
+                            // 마커를 생성합니다
+                            var marker = new kakao
+                                .maps
+                                .Marker({position: markerPosition});
+
+                            // 마커가 지도 위에 표시되도록 설정합니다
+                            marker.setMap(map);
+
+                            
+
+                            setTimeout(function () {
+
+                              map.relayout();
+                            
+                              map.setCenter(markerPosition);
+                                
+                            }, 1500);
+
+                        </script>
+{%endblock%}
