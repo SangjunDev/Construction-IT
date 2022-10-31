@@ -55,9 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'account',
     'access',
-    'common.apps.CommonConfig',
+    'users.apps.UsersConfig', 
 ]
 
 MIDDLEWARE = [
@@ -75,7 +74,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR), "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'ko-kr'
+LANGUAGE_CODE = 'ko'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -155,6 +154,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'
-
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login/'          # 로그인 URL
+LOGIN_REDIRECT_URL = '/users/main/'  # 로그인 후 URL
+LOGOUT_REDIRECT_URL = '/'            # 로그아웃 후 URL
+AUTH_USER_MODEL = "users.User"       # 커스텀 인증 모델

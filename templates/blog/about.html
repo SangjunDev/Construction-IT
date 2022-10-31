@@ -3,6 +3,8 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
 <div class="bg-light py-2">
   <div class="container">
       <nav aria-label="breadcrumb">
@@ -222,6 +224,16 @@
                   </div>
               </div>
           </section>
+
+          {%else%}
+
+          
+
+
+
+
+          {%endif%}
+
 {% endblock %} 
 
 {%block body_static%}
