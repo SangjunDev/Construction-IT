@@ -20,12 +20,18 @@
         <div class="row">
           <div class="col-lg-5">
             <h2 class="h4 mb-4">Personal information</h2>
-            <form class="mb-5" method="post" action="{% url 'common:signup' %}">
+            <form class="mb-5" method="post" action="" id="signup" novalidate>
               {% csrf_token %}
-              {% include "form_errors.html" %}
               <div class="row">
                 <div class="form-group col-md-8 mb-3">
-                  <label class="form-label">User Name</label>
+                  <label name="label_user_id" for="{{ form.user_id.id_for_label }}">
+                    {{ form.user_id.label }}
+              </label>
+              {{ form.user_id }}
+    	        <script type="text/javascript">
+            if (document.getElementsByName('user_id')[0].value != '') {
+            	document.getElementsByName('label_user_id')[0].setAttribute('class','active');
+            }
                   <input class="form-control" type="text" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}" placeholder="Enter your first user name">
                 </div>
                 <div class="form-group col-md-8 mb-3">
