@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os, json
+from turtle import Turtle
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
 
@@ -158,3 +159,13 @@ LOGIN_URL = '/users/login/'          # 로그인 URL
 LOGIN_REDIRECT_URL = '/users/main/'  # 로그인 후 URL
 LOGOUT_REDIRECT_URL = '/'            # 로그아웃 후 URL
 AUTH_USER_MODEL = "users.User"       # 커스텀 인증 모델
+
+
+# 이메일 인증
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.naver.com'
+EMAIL_HOST_USER = 'kisj20'
+EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+DEFAULT_FROM_MAIL='kisj20'
