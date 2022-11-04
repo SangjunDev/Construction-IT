@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from .decorators import *
@@ -13,7 +14,37 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
+from .forms import LoginForm
+from django.contrib.auth import login, authenticate, logout
+from django.views.generic import FormView
+from django.conf import settings
 
+#로그인
+@method_decorator(logout_message_required, name='dispatch')
+class LoginView(FormView):
+    template_name = 'users/login.html'
+    form_class = LoginForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        user_id = form.cleaned_data.get("user_id")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=user_id, password=password)
+        
+        if user is not None:
+            self.request.session['user_id'] = user_id
+            login(self.request, user)
+            remeber_session = self.request.POST.get('remember_session', False)
+            if remeber_session:
+                settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+                
+        return super().form_valid(form)
+    
+#로그아웃
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+        
 
 # 회원가입 약관동의
 @method_decorator(logout_message_required, name='dispatch')
