@@ -1,23 +1,24 @@
-import re
+import json
+from urllib import request
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from .decorators import *
 from .models import User
-from django.views.generic import View
+from django.views.generic import View, CreateView, FormView, View
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from .forms import CsRegisterForm
-from django.views.generic import CreateView
+from .forms import CsRegisterForm, RecoveryIdForm, RecoveryPwForm,CustomSetPasswordForm
 from django.urls import reverse
-from .helper import send_mail
+from .helper import send_mail, email_auth_num
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
 from .forms import LoginForm
 from django.contrib.auth import login, authenticate, logout
-from django.views.generic import FormView
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
+
 
 #로그인
 @method_decorator(logout_message_required, name='dispatch')
@@ -86,7 +87,7 @@ class CsRegisterView(CreateView):
         self.object = form.save()
         
         send_mail(
-        '{}님의 회원가입 인증메일 입니다.'.format(self.object.user_id),
+        '[CNDI]{}님의 회원가입 인증메일 입니다.'.format(self.object.user_id),
         [self.object.email],
         html=render_to_string('users/register_email.html', {
             'user': self.object,
@@ -123,6 +124,97 @@ def activate(request, uid64, token):
     messages.error(request, '메일 인증에 실패했습니다.')
     return redirect('users:login')
 
+# 아이디찾기
+@method_decorator(logout_message_required, name='dispatch')
+class RecoveryIdView(View):
+    template_name = 'users/recovery_id.html'
+    recovery_id = RecoveryIdForm
+
+    def get(self, request):
+        if request.method=='GET':
+            form_id = self.recovery_id(None)
+        return render(request, self.template_name, { 'form_id':form_id, })
     
+# 아이디찾기 AJAX 통신
+def ajax_find_id_view(request):
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    result_id = User.objects.get(name=name, email=email)
+       
+    return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+
+# 비밀번호찾기
+@method_decorator(logout_message_required, name='dispatch')
+class RecoveryPwView(View):
+    template_name = 'users/recovery_pw.html'
+    recovery_pw = RecoveryPwForm
+
+    def get(self, request):
+        if request.method=='GET':
+            form_pw = self.recovery_pw(None)
+            return render(request, self.template_name, { 'form_pw':form_pw, })
 
 
+# 비밀번호찾기 AJAX 통신
+def ajax_find_pw_view(request):
+    user_id = request.POST.get('user_id')
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    result_pw = User.objects.get(user_id=user_id, name=name, email=email)
+
+    if result_pw:
+        auth_num = email_auth_num()
+        result_pw.auth = auth_num 
+        result_pw.save()
+
+        send_mail(
+            '[CNDI] 비밀번호 찾기 인증메일입니다.',
+            [email],
+            html=render_to_string('users/recovery_email.html', {
+                'auth_num': auth_num,
+            }),
+        )
+    # print(auth_num)
+    return HttpResponse(json.dumps({"result": result_pw.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+ 
+
+# 비밀번호찾기 인증번호 확인
+def auth_confirm_view(request):
+    # if request.method=='POST' and 'auth_confirm' in request.POST:
+    user_id = request.POST.get('user_id')
+    input_auth_num = request.POST.get('input_auth_num')
+    user = User.objects.get(user_id=user_id, auth=input_auth_num)
+    # login(request, user)
+    user.auth = ""
+    user.save()
+    request.session['auth'] = user.user_id  
+    
+    return HttpResponse(json.dumps({"result": user.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+
+# 비밀번호찾기 새비밀번호 등록
+@logout_message_required
+def auth_pw_reset_view(request):
+    if request.method == 'GET':
+        if not request.session.get('auth', False):
+            raise PermissionDenied
+
+    if request.method == 'POST':
+        session_user = request.session['auth']
+        current_user = User.objects.get(user_id=session_user)
+        # del(request.session['auth'])
+        login(request, current_user)
+
+        reset_password_form = CustomSetPasswordForm(request.user, request.POST)
+        
+        if reset_password_form.is_valid():
+            user = reset_password_form.save()
+            messages.success(request, "비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.")
+            logout(request)
+            return redirect('users:login')
+        else:
+            logout(request)
+            request.session['auth'] = session_user
+    else:
+        reset_password_form = CustomSetPasswordForm(request.user)
+
+    return render(request, 'users/password_reset.html', {'form':reset_password_form})  

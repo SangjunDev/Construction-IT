@@ -1,8 +1,8 @@
 from django import forms
+from django.forms import CharField
 from .models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from django.contrib.auth.hashers import check_password
-
 
 def hp_validator(value):
     if len(str(value)) != 10:
@@ -67,4 +67,76 @@ class LoginForm(forms.Form):
                 self.add_error('password', '비밀번호가 틀렸습니다.')
                     
                     
+#아이디 찾기
+class RecoveryIdForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput,)
+    email = forms.EmailField(widget=forms.EmailInput,)
+
+    class Meta:
+        fields = ['name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(RecoveryIdForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = '이름'
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'form_name',
+        })
+        self.fields['email'].label = '이메일'
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'form_email' 
+        })
+        
+# 비밀번호찾기 폼
+class RecoveryPwForm(forms.Form):
+    user_id = forms.CharField(
+        widget=forms.TextInput,
+    )
+    name = forms.CharField(
+        widget=forms.TextInput,
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput,
+    )
+    class Meta:
+        fields = ['user_id', 'name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(RecoveryPwForm, self).__init__(*args, **kwargs)
+        self.fields['user_id'].label = '아이디'
+        self.fields['user_id'].widget.attrs.update({
+            # 'placeholder': '아이디을 입력해주세요',
+            'class': 'form-control',
+            'id': 'pw_form_id',
+        })
+        self.fields['name'].label = '이름'
+        self.fields['name'].widget.attrs.update({
+            # 'placeholder': '이름을 입력해주세요',
+            'class': 'form-control',
+            'id': 'pw_form_name',
+        })
+        self.fields['email'].label = '이메일'
+        self.fields['email'].widget.attrs.update({
+            # 'placeholder': '이메일을 입력해주세요',
+            'class': 'form-control',
+            'id': 'pw_form_email',
+        })
+
+
+# 비밀번호찾기 새 비밀번호 입력 폼
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomSetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['new_password1'].label = '새 비밀번호'
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control',
+            # 'placeholder': '새 비밀번호',
+        })
+        self.fields['new_password2'].label = '새 비밀번호 확인'
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control',
+            # 'placeholder': '새 비밀번호 확인',
+        })
+        
     
