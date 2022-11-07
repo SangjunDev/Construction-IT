@@ -95,11 +95,73 @@
                         <a class="nav-link text-uppercase" href="/contact">Contact</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="/users/login">
+                    <li class="nav-item me-lg-3">
+                        <a
+                            class="nav-link text-uppercase dropdown-toggle"
+                            id="navbarDropdown"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy">
                               <use xlink:href="#user-1"> </use>
                             </svg></a>
+                            <ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdown">
+                                {% if user.is_authenticated %}
+                                {% if user.level == '0' %}
+                                <li>
+                                    <span style="font-size: 22px;">{{ user.name }}</span> 님 환영합니다. (개발자)
+                                </li>
+                                <li>
+                                    <div style="text-align: right; margin-bottom: -25px;">
+                                        <a href="{% url 'users:logout' %}">로그아웃</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div style="text-align: right; margin-bottom: -25px;">
+                                        <a href="{% url 'users:profile' %}">마이페이지</a>
+                                    </div>
+                                </li>
+                                {% elif user.level == '1' %}
+                                <li>
+                                    <span style="font-size: 22px;">{{ user.name }}</span> 님 환영합니다. (관리자)
+                                </li>
+                                <li>
+                                    <div style="text-align: right; margin-bottom: -25px;">
+                                        <a href="{% url 'users:logout' %}">로그아웃</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div style="text-align: right; margin-bottom: -25px;">
+                                        <a href="{% url 'users:profile' %}">마이페이지</a>
+                                    </div>
+                                </li>
+
+                                {% else %}
+                                <li>
+                                    <span style="font-size: 22px;">{{ user.name }}</span> 님 환영합니다.
+                                </li>
+                                <li>
+                                    <div style="text-align: right; margin-bottom: -25px;">
+                                        <a href="{% url 'users:logout' %}">로그아웃</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div style="text-align: right; margin-bottom: -25px;">
+                                        <a href="{% url 'users:profile' %}">마이페이지</a>
+                                    </div>
+                                </li>    
+                                {% endif %} 
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'users:login' %}">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'users:agreement' %}">회원가입</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
                     </li>       
                 </ul>
                 

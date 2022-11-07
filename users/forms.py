@@ -1,8 +1,9 @@
 from django import forms
 from django.forms import CharField
 from .models import User
-from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, PasswordChangeForm, UserChangeForm
 from django.contrib.auth.hashers import check_password
+from .choice import *
 
 def hp_validator(value):
     if len(str(value)) != 10:
@@ -139,4 +140,39 @@ class CustomSetPasswordForm(SetPasswordForm):
             # 'placeholder': '새 비밀번호 확인',
         })
         
-    
+#비밀번호 변경
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomPasswordChangeForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].label = '기존 비밀번호'
+        self.fields['old_password'].widget.attrs.update({
+            'class': 'form-control',
+            # 'placeholder': '기존 비밀번호',
+        })
+        self.fields['new_password1'].label = '새 비밀번호'
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control',
+            # 'placeholder': '새 비밀번호',
+        })
+        self.fields['new_password2'].label = '새 비밀번호 확인'
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control',
+            # 'placeholder': '새 비밀번호 확인',
+        })
+        
+#회원정보 수정
+class CustomCsUserChangeForm(UserChangeForm):
+    password = None
+    hp = forms.IntegerField(label='연락처', widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'maxlength':'11', 'oninput':"maxLengthCheck(this)",}), 
+    )        
+    name = forms.CharField(label='이름', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'maxlength':'8',}), 
+    ) 
+    class Meta:
+        model = User()
+        fields = ['hp', 'name']                       
+                            
+                            
+                            
+                                

@@ -1,5 +1,6 @@
 import json
 from urllib import request
+from wsgiref.util import request_uri
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from .decorators import *
@@ -7,18 +8,17 @@ from .models import User
 from django.views.generic import View, CreateView, FormView, View
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from .forms import CsRegisterForm, RecoveryIdForm, RecoveryPwForm,CustomSetPasswordForm
+from .forms import CsRegisterForm, RecoveryIdForm, RecoveryPwForm,CustomSetPasswordForm, CustomPasswordChangeForm, LoginForm
 from django.urls import reverse
 from .helper import send_mail, email_auth_num
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
-from .forms import LoginForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
-
+from .forms import CustomCsUserChangeForm
 
 #로그인
 @method_decorator(logout_message_required, name='dispatch')
@@ -218,3 +218,41 @@ def auth_pw_reset_view(request):
         reset_password_form = CustomSetPasswordForm(request.user)
 
     return render(request, 'users/password_reset.html', {'form':reset_password_form})  
+
+#비밀번호 수정
+@login_message_requred
+def password_edit_view(request):
+    if request.method == 'POST':
+        password_change_form  = CustomPasswordChangeForm(request.user, request.POST)
+        if password_change_form.is_valid():
+            user = password_change_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "비밀번호를 성공적으로 변경하였습니다.")
+            return redirect('users:profile')
+        
+    else:
+        password_change_form = CustomPasswordChangeForm(request.user)
+        
+    return render(request, 'users/profile_password.html', {'password_change_form':password_change_form})        
+
+#프로필 구현
+@login_message_requred
+def profile_view(request):
+    if request.method =='GET':
+        return render(request, 'users/profile.html')
+    
+#프로필 수정
+@login_message_requred
+def profile_update_view(request):
+    if request.method=='POST':
+        user_change_form = CustomCsUserChangeForm(request.POST, instance = request.user)
+        
+        if user_change_form.is_valid():
+            user_change_form.save()
+            messages.success(request, '회원정보가 수정되었습니다.')
+            return render(request, 'users/profile.html')
+        
+    else:
+        user_change_form = CustomCsUserChangeForm(instance = request.user)
+        
+        return render(request, 'users/profile_update.html', {'user_change_form':user_change_form})     
