@@ -173,6 +173,24 @@ class CustomCsUserChangeForm(UserChangeForm):
         model = User()
         fields = ['hp', 'name']                       
                             
-                            
+#회원탈퇴 비밀번호 확인
+class CheckPasswordForm(forms.Form):
+    password = forms.CharField(label='비밀번호', widget=forms.PasswordInput(
+        attrs={'class':'form-contorl',}),
+    )
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = self.user.password
+        
+        if password:
+            if not check_password(password, confirm_password):
+                self.add_error('password', '비밀번호가 일치하지 않습니다.')
+                    
+                                
                             
                                 

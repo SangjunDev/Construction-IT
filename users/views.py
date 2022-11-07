@@ -8,7 +8,7 @@ from .models import User
 from django.views.generic import View, CreateView, FormView, View
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from .forms import CsRegisterForm, RecoveryIdForm, RecoveryPwForm,CustomSetPasswordForm, CustomPasswordChangeForm, LoginForm
+from .forms import CsRegisterForm, RecoveryIdForm, RecoveryPwForm,CustomSetPasswordForm, CustomPasswordChangeForm, LoginForm, CustomCsUserChangeForm, CheckPasswordForm
 from django.urls import reverse
 from .helper import send_mail, email_auth_num
 from django.template.loader import render_to_string
@@ -18,7 +18,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
-from .forms import CustomCsUserChangeForm
 
 #로그인
 @method_decorator(logout_message_required, name='dispatch')
@@ -256,3 +255,20 @@ def profile_update_view(request):
         user_change_form = CustomCsUserChangeForm(instance = request.user)
         
         return render(request, 'users/profile_update.html', {'user_change_form':user_change_form})     
+    
+#회원탈퇴
+@login_message_requred
+def profile_delete_view(request):
+    if request.method == 'POST':
+        password_form = CheckPasswordForm(request.user, request.POST)
+        
+        if password_form.is_valid():
+            request.user.delete()
+            logout(request)
+            messages.success(request, "회원탈퇴가 완료되었습니다.")
+            return redirect('/users/login/')
+        
+    else:
+        password_form= CheckPasswordForm(request.user)
+        
+    return render(request, 'users/profile_delete.html', {'password_form':password_form})        
