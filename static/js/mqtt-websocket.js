@@ -16,7 +16,7 @@ function sendMsg(msg){
     alert(msg);
 
     message = new Paho.MQTT.Message(msg);
-    message.destinationName = "iot/led"; 
+    message.destinationName = "192.168.10.89/led"; 
     mqtt.send(message);
 }
 
@@ -27,8 +27,6 @@ function MQTTConnect(){
 
     var options = {
         timeout:3,
-        userName : "sangjun",
-        password : "tkdwns4455!",
         onSuccess:onConnect, 
         onFailure:onFailure,
     }

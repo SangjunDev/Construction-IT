@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{%load static %}
+
+{% block head_static%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script src="{% static 'js/mqtt-websocket.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+
+{% if user.level == '0' or user.level == '1' or user.level == '2' %}
+
+          <a> 접속 완료 </a>
+          <script type="text/javascript">
+            MQTTConnect()
+        </script>
+        <h1>MQTT와 웹소켓 테스트</h1>
+        <div id="data"></div>
+        <form>
+            <input type="button" value="led켜기" onclick="sendMsg('led_on')">
+            <input type="button" value="led끄기" onclick="sendMsg('led_off')">
+        </form>
+
+          {%else%}
+          <a>접근 권한 없음</a>
+          {%endif%}
+
+{% endblock %} 
