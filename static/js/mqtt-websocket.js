@@ -13,7 +13,7 @@ function onFailure(){
 }
 
 function sendMsg(msg){
-    alert(msg);
+    //alert(msg);
 
     message = new Paho.MQTT.Message(msg);
     message.destinationName = "192.168.10.89/led"; 
