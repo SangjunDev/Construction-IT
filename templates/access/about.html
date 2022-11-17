@@ -19,8 +19,8 @@
         <h1>MQTT와 웹소켓 테스트</h1><br>
         <div id="data"></div>
         <form>
-            <input type="button" value="led켜기" onclick="Msg('led_on')">
-            <input type="button" value="led끄기" onclick="Msg('led_off')">
+            <input type="button" value="led켜기" onclick="SendMsg('led_on')">
+            <input type="button" value="led끄기" onclick="SendMsg('led_off')">
         </form><br>
           {%else%}
           <a>접근 권한 없음</a>

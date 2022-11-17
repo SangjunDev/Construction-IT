@@ -33,13 +33,18 @@ def on_message(client, userdata, message):
 
 if __name__ == "__main__":
         try:
-         if GPIO.input(led_pin) == 1:
-           print("led state: on")
-         else:
-           print("led state: off")
+         
 
          mqttClient = mqtt.Client(transport='websockets')
          mqttClient.on_connect = on_connect
          mqttClient.on_message = on_message
          mqttClient.connect(broker ,port ,60)
          mqttClient.loop_forever()
+         
+         if GPIO.input(led_pin) == 1:
+            print("led state: on")
+         else:
+           print("led state: off")
+         
+        except:
+            GPIO.cleanup()
