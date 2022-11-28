@@ -14,12 +14,24 @@
         <h1>MQTT와 웹소켓 테스트</h1><br>
         <div id="data"></div>
         <form>
-            <input type="button" value="led켜기" onclick="SendMsg('led_on')">
-            <input type="button" value="led끄기" onclick="SendMsg('led_off')">
+            <input type="button" value="led1 켜기" onclick="SendMsg('led_on')">
+            <input type="button" value="led1 끄기" onclick="SendMsg('led_off')">
         </form><br>
+        <form>
+          <input type="button" value="led2 켜기" onclick="SendMsg2('led_on')">
+          <input type="button" value="led2 끄기" onclick="SendMsg2('led_off')">
+      </form><br>
+
+
+
+
           {%else%}
           <a>접근 권한 없음</a>
           {%endif%}
+
+          <form id = "contents" name="contents" method="post" action="{}"
+
+
           
 {% endblock %} 
 
@@ -36,7 +48,8 @@
   var reconnectTimeout = 2000;
   var host = etc['host'];
   var port = etc['port'];
-  var LedControl_topic = "192.168.10.89/led";
+  var LedControl_topic1 = "192.168.10.88/led";
+  var LedControl_topic2 = "192.168.10.89/led";
   
 
 
@@ -57,7 +70,8 @@
     
     function onConnect(){
       console.log("연결 성공");
-      FistAction()
+      FistAction1()
+      FistAction2()
     }
     
     function onFailure(){
@@ -65,32 +79,53 @@
         mqtt.disconnect();
       }
     
-    function FistAction(){
+    function FistAction1(){
     
-    sub_topic = "192.168.10.89/status"
+    sub_topic1 = "192.168.10.88/status"
     message = new Paho.MQTT.Message("status");
-    message.destinationName = LedControl_topic;
+    message.destinationName = LedControl_topic1 ;
     mqtt.send(message);
     
-    mqtt.subscribe(sub_topic)
+    mqtt.subscribe(sub_topic1)
     mqtt.onMessageArrived = onMessageCS;
     }
+
+    function FistAction2(){
+    
+      sub_topic2 = "192.168.10.89/status"
+      message = new Paho.MQTT.Message("status");
+      message.destinationName = LedControl_topic2 ;
+      mqtt.send(message);
+      
+      mqtt.subscribe(sub_topic2)
+      mqtt.onMessageArrived = onMessageCS;
+      }
     
     function onMessageCS(message) {
-        console.log("Current Status: " + message.payloadString);
+        console.log(message.destinationName+ "Current Status: " + message.payloadString);
     }
     
     function onMessageCD(message) {
-        console.log("Change Detection: " + message.payloadString);
+        console.log(message.destinationName+ "Change Detection: " + message.payloadString);
     }
     
     function SendMsg(msg){
       //alert(msg);
+      sub_topic = "192.168.10.88/detection"
+      message = new Paho.MQTT.Message(msg);
+      message.destinationName = LedControl_topic1 ;
+      mqtt.send(message);
+      mqtt.subscribe(sub_topic1)
+      mqtt.onMessageArrived = onMessageCD;
+    }
+
+    function SendMsg2(msg){
+      //alert(msg);
       sub_topic = "192.168.10.89/detection"
       message = new Paho.MQTT.Message(msg);
-      message.destinationName = LedControl_topic ;
+      message.destinationName = LedControl_topic2 ;
       mqtt.send(message);
-      mqtt.subscribe(sub_topic)
+      mqtt.subscribe(sub_topic2)
       mqtt.onMessageArrived = onMessageCD;
     }
     
