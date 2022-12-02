@@ -13,4 +13,3 @@ def led_off(request):
 
 def led_detecte(request):
   pass
-

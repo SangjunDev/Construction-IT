@@ -59,7 +59,23 @@ INSTALLED_APPS = [
     'access',
     'mqttWebsocket',
     'users.apps.UsersConfig', 
+    'channels',
+    'mqttchannel',
 ]
+
+#Channels
+ASGI_APPLICATION = 'mysite.routing.application'
+
+#CHANNEL_LAYERS = {
+#    'default': {
+#        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#        'CONFIG': {
+#            "hosts": [('cnditest.kro.kr', 6379)],
+#        },
+#    },
+#}
+
+WSGI_APPLICATION = 'mysite.wsgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

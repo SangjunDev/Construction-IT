@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('users/', include('users.urls')),
     path('access/', include('access.urls')),
+     path('mqtt/', include('mqttchannel.urls')),
 ]
