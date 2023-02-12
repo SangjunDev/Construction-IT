@@ -1,56 +1,51 @@
-{%extends "base.html" %}
+{%extends "user_base.html" %}
 {%load static %}
 
 {% block content %}
-    
-    <div class="bg-light py-2">
-      <div class="container">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb mb-0 bg-light">
-            <li class="breadcrumb-item"><a class="reset-anchor" href="index.html">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Login</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <section class="py-5">
-      <div class="container py-5">
-        <div class="row">
-          <div class="col-lg-5">
-            <h1 class="hero-heading">Login</h1>
-            <p class="text-muted mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <h2 class="h4 mb-4">Returning user</h2>
-            <form method="POST" action="." novalidate>
+
+<!-- Start wrapper-->
+ <div id="wrapper">
+
+ <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+	<div class="card card-authentication1 mx-auto my-5">
+		<div class="card-body">
+		 <div class="card-content p-2">
+		 	<div class="text-center">
+        <br>
+		 		<img src="{% static 'images/cndi_bold.png' %}" alt="logo icon">
+		 	</div>
+       <br>
+		  <div class="card-title text-uppercase text-center py-3"  >아이디와 비밀번호 입력을 통해<br> 로그인할 수 있습니다.</div>
+
+		    <form method="POST" action="." novalidate>
               {% csrf_token %}
-              <div class="row">
-                <div class="form-group col-lg-6 mb-3">
-                  <label name="label_user_id" for="{{ form.user_id.id_for_label }}">
-                    {{ form.user_id.label }}
-                </label>
-                {{ form.user_id }}
-                            <script type="text/javascript">
-                                if (document.getElementsByName('user_id')[0].value != '') {
-                                    document.getElementsByName('label_user_id')[0].setAttribute('class', 'active');
-                                }
-                            </script>
-                            {% if form.user_id.errors %}
-                            <script type="text/javascript">
-                                document.getElementsByName('user_id')[0].setAttribute('class',
-                                    'form-control is-invalid')
-                            </script>
-                            {% for error in form.user_id.errors %}
-                            <div class="invalid-feedback">
-                                {{ error }}
-                            </div>
-                            {% endfor %}
-                            {% endif %}
-                </div>
-                <div class="form-group col-lg-6 mb-3">
-                  <label for="{{ form.password.id_for_label }}"><i class="fas fa-lock"></i>&nbsp;&nbsp;{{ form.password.label }}</label>
+			  <div class="form-group">
+			  <label for="exampleInputUsername" class="sr-only">UserID</label>
+			   <div class="position-relative has-icon-right">
+          <label name="label_user_id" for="{{ form.user_id.id_for_label }}"><i class="icon-user"></i> {{ form.user_id.label }} </label>
+        {{ form.user_id }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('user_id')[0].value != '') {
+                            document.getElementsByName('label_user_id')[0].setAttribute('class', 'active');
+                        }
+                    </script>
+                    {% if form.user_id.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('user_id')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.user_id.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+			   </div>
+			  </div>
+			  <div class="form-group">
+			  <label for="exampleInputPassword" class="sr-only">Password</label>
+			   <div class="position-relative has-icon-right">
+				  <label for="{{ form.password.id_for_label }}"><i class="icon-lock"></i> {{ form.password.label }}</label>
                   {{ form.password }}
 
                             {% if form.password.errors %}
@@ -63,28 +58,37 @@
                             </div>
                             {% endfor %}
                             {% endif %}
-                </div>
-                <div class="form-group col-12 mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" id="flexCheckDefault" type="checkbox" name="remember_session/">
-                    <label class="form-check-label text-muted" for="flexCheckDefault">Remember me for next time</label>
-                  </div>
-                </div>
-                <div class="form-group col-12">
-                  <button class="btn btn-primary" type="submit">Login</button>
-                  <button class="btn btn-primary" type="button" onclick="location.href='recovery/id'">Login</button>
-                </div>
-                
-              </div>
-            </form>
-          </div>
-          <div class="col-lg-5 ms-auto">
-            {% if not user.is_authenticated %}
-            <h2 class="h4 mb-4">New customer</h2>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a class="btn btn-primary" href="{% url 'users:agreement' %}">Create an account</a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </section>
-    {% endblock %}
+			   </div>
+			  </div>
+			<div class="form-row">
+			 <div class="form-group col-6">
+
+        <!--
+			   <div class="icheck-material-white">
+                <input type="checkbox" id="user-checkbox" checked="" />
+                <label for="user-checkbox">Remember me</label>
+			  </div>
+        -->
+			 </div>
+			 <div class="form-group col-6 text-right">
+			  <a href="#"></a>
+			 </div>
+			</div>
+
+			 <button type="submit" class="btn btn-light btn-block" >로그인</button>
+			  <div class="text-center mt-3"></div>
+			
+			 </form>
+		   </div>
+		  </div>
+      {% if not user.is_authenticated %}
+		  <div class="card-footer text-center py-3">
+		    <p class="text-warning mb-0" style ="font-size:12px;">
+          <a href="/users/recovery/id"> 아이디 찾기</a> |
+          <a href="/users/recovery/pw"> 비밀번호 찾기</a> |
+          <a href="{% url 'users:agreement' %}"> 회원가입</a></p>
+		  </div>
+      {% endif %}
+	     </div>
+    
+{%endblock%}

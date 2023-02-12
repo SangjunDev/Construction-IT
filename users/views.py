@@ -43,7 +43,7 @@ class LoginView(FormView):
 #로그아웃
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('/users/login/')
         
 
 # 회원가입 약관동의
@@ -68,7 +68,7 @@ class AgreementView(View):
 #필로티 이용자 회원가입
 class CsRegisterView(CreateView):
     model = User
-    template_name = 'users/register_cs.html'
+    template_name = 'users/register.html'
     form_class = CsRegisterForm
 
     def get(self, request, *args, **kwargs):

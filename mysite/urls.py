@@ -18,8 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('control.urls')),
     path('', include('blog.urls')),
     path('users/', include('users.urls')),
-    path('access/', include('access.urls')),
-     path('mqtt/', include('mqttchannel.urls')),
+    path('mqtt/', include('mqttWebsocket.urls')),
+   
+        
 ]

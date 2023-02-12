@@ -1,0 +1,12 @@
+{%extends "base.html" %}
+
+{% block content %}
+
+<h1>Control Data</h1>
+<ul>
+  {% for data in manages %}
+    <li>{{ data.serverip }} - {{ data.serverip }}</li>
+  {% endfor %}
+</ul>
+
+{% endblock %} 

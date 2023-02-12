@@ -1,77 +1,108 @@
+{%extends "base.html" %}
 
-        {%extends "base.html" %}
-        {%load static %}
+{% block content %}
 
-        {% block content %}
-        
 
-        <section>
-            <div
-                class="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
-                id="hero-slider">
-                <div
-                    class="swiper-wrapper"
-                    style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
-                    <div
-                        class="swiper-slide hero bg-center bg-cover d-flex align-items-center "
-                        style="background: url({% static 'img/banner.jpg' %}); height:880px;">
 
-                        <div class="fixed-top" style="padding-top:100px">
-                            <div class="row text-lg-center">
-                                <div class="col-lg-12">
-                                    <p class="h6 text-uppercase text-muted mb-3">CNDI & Piloti</p>
-                                    <h1
-                                        class="hero-heading line-height-sm mb-2 title"
-                                        data-swiper-parallax="-200"
-                                        style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-                                        <font color="#FFFFF"></font>
-                                    </h1>
-                                    <div class="row">
-                                        <div class="col-lg-5 mx-auto">
-                                            <p
-                                                class="font-weight-light text-muted mb-4 mt-3 subtitle"
-                                                data-swiper-parallax="-400"
-                                                style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; font-size:25px">
-                                                <font color="#FF3333"></font>
-                                                <font color="#FFFFF"></font>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
+<div class="content-wrapper">
+  <div class="container-fluid">
 
-                </div>
+<!--Start Dashboard Content-->
 
-            </section><br><br>
+<div class="row">
+   <div class="col-12 col-lg-8 col-xl-8">
+    <div class="card">
+   <div class="card-header" style =" font-size:20px; text-align:center;">공용부&nbsp;&nbsp;필로티&nbsp;&nbsp;조명 <br> 무선&nbsp;&nbsp;제어&nbsp;&nbsp;시스템
+     
+   </div>
+   {% for manage in manages %}
+    
+
+   <div class="row m-0 row-group text-center border-top border-light-3">
+     <div class="col-12 col-lg-12">
+      <br>     
+     
+     <div class="col-12 col-lg-12">
+       <div class="p-3">
+        <h4 class="fw-bold">위치:{{manage.installationsite.sitenickname}}</h4>
+        <h4 class="fw-bold">설치 갯수:{{ manage.maintopic_count }}</h4>
+       </div>
+     </div>
+
+     {% for topic in manage.topic.all %}
+  <h4 class="fw-bold">LED</h4>
+											<h6 class="fw-bold mt-3 mb-0">
+												<label class="switch">
+                          <input type="hidden" id="topic{{topic.id}}" name="topic" value="{{topic.maintopic}}/{{topic.subtopic)">
+                          <input type="hidden" id="message{{topic.id}}" name="message" value=""> 
+													<input type="checkbox" onclick = "led({{topic.id}})">
+													<span class="slider round"></span>
+													
+												</label>
+												
+											</h6>
+    {% endfor %}
+   {% endfor %}
+
+
+     </div>
+   </div>
+
+  </div>
+ </div>
+    <!--End Dashboard Content-->
+  
+<!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+  <!--end overlay-->
+  
+  </div>
+  <!-- End container-fluid-->
+  
+  </div>
+
+  <script>
+    function led(topicId) {
+
+      var checkbox = document.querySelector('input[type="checkbox"]');
+
+      var message = checkbox.checked ? "led_on" : "led_off";
       
+      var topic = document.getElementById("topic" + topicId).value;
+
+      var message = document.getElementById("message" + topicId).value;
+
+      var csrf_token = getCookie("csrftoken");
       
-            <section class="pb-5">
-                <div class="container p-5 bg-light">
-                    <div class="row align-items-center">
-                        <div class="col-lg-7 mb-4 mb-lg-0">
-                            <h3>
-                                <span class="text-primary">ROHDE &amp; SCHWARZ
-                                </span>
-                                Contact Us</h3>
-                            <p class="text-small text-muted mb-0">더욱 자세한 제품 상담을 원하시면 제품문의 버튼을 눌러 문의 페이지로 이동 해주세요.</p>
-                        </div>
-                        <div class="col-lg-5">
-      
-                            <div >
-      
-                                <button
-                                    class="btn btn-primary btn-lg"
-                                    type="button"
-                                    onclick="location.href='/contact'"
-                                    style="float:right; border-radius: 5px;">Contact Us</button>
-                            </div>
-      
-                        </div>
-                    </div>
-                </div>
-            </section>
-        {% endblock %} 
-        
+      $.ajax({
+        type: "POST",
+        url: "/mqtt/publish",
+        data: {
+          topic: topic,
+          message: message
+        },
+        headers: {
+          "X-CSRFToken": csrf_token
+        },
+      });
+    }
+
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+  </script>
+
+{% endblock %} 

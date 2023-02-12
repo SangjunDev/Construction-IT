@@ -1,15 +1,26 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from . import mqttWebsocket as mqtt
+from django.shortcuts import render, redirect
 
-def mqttTest(request):
-  return render(request, 'access/about.html')
+import paho.mqtt.client as mqtt
 
-def led_on(request):
-  pass
+from .forms import PostForm
+from django.forms import model_to_dict
+from django.http import JsonResponse
 
-def led_off(request):
-  pass
+def pub(request):
+  return render(request, 'blog/index.html')
 
-def led_detecte(request):
-  pass
+
+def publish(request):
+  
+  mqttClient = mqtt.Client(transport='websockets')
+  mqttClient.username_pw_set("user","1234")
+  mqttClient.connect("cnditest.kro.kr" ,9001 , 60)
+  
+  if request.method =="POST":
+      topic = request.POST.get("topic",None)
+      Message = request.POST.get("message",None)  
+        
+      mqttClient.publish(topic, Message, 1)
+    
+
+  return redirect('/')

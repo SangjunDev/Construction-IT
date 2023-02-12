@@ -56,26 +56,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'access',
     'mqttWebsocket',
+    'control',
     'users.apps.UsersConfig', 
-    'channels',
-    'mqttchannel',
 ]
 
 #Channels
-ASGI_APPLICATION = 'mysite.routing.application'
-
-#CHANNEL_LAYERS = {
-#    'default': {
-#        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#        'CONFIG': {
-#            "hosts": [('cnditest.kro.kr', 6379)],
-#        },
-#    },
-#}
-
-WSGI_APPLICATION = 'mysite.wsgi.application'
+ASGI_APPLICATION = 'mysite.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,8 +104,8 @@ DATABASES = {
         #'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME':'Construction-IT',
-        'USER':'postgres',
-        'PASSWORD': '1234qwer',
+        'USER':'sangjunkim',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT':'5432',
         

@@ -1,42 +1,55 @@
-{%extends "base.html" %}
+{%extends "user_base.html" %}
 {%load static %}
 
 {% block content %}
-<div class="container">
-  <div class="row justify-content-md-center">
-      <div style="position: absolute; top: 45%; height: 504.18px; margin-top: -252.09px;">
-          <div class="card" style="width: 32rem;">
-              <div class="card-body">
-                  <div class="text-center">
-                      <img src="{% static 'img/logo2.jpg' %}"
-                          style="width: 40%; margin-top:10px; margin-bottom: -30px;">
-                  </div>
+<!-- Start wrapper-->
+<div id="wrapper">
+
+    <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+       <div class="card card-authentication1 mx-auto my-5">
+        <div class="card-body">
+            <div class="card-content p-2">
+                <div class="text-center">
+                    <!--<img src="{% static 'images/logo-icon.png' %}" alt="logo icon">
+         -->
+                </div>
+             <div class="card-title text-uppercase text-center py-3" >아이디 찾기</div>
                   <div class="row mt-5">
                       <div class="col-12">
                           {% csrf_token %}
                           <!--이름-->
                           <div class="mb-4 md-form">
                               <label name="label_name" for="{{ form_id.name.id_for_label }}"><i
-                                  class="fas fa-user"></i>&nbsp;&nbsp;{{ form_id.name.label }}</label>
+                                  class="zmdi zmdi-account"></i>&nbsp;&nbsp;{{ form_id.name.label }}</label>
                                   {{ form_id.name }}
                           </div>
                           <!--이메일-->
                           <div class="mb-4 md-form">
                               <label name="label_email" for="{{ form_id.email.id_for_label }}"><i
-                                      class="fas fa-envelope"></i>&nbsp;&nbsp;{{ form_id.email.label }}</label>
+                                      class="fa fa-envelope-open-o"></i>&nbsp;&nbsp;{{ form_id.email.label }}</label>
                                   {{ form_id.email }}
-                              <small class="form-text text-muted">
-                                  등록하신 이름과 메일주소가 일치해야 합니다.
-                              </small>
+                             
+                              <small class="form-text mt-2" style="color:#FFFFFFBF">
+                                등록하신 이름과 메일주소가 일치해야 합니다.
+                            </small>
                           </div>
+                          
+                           <button id="find_id"   class="btn btn-light btn-block" name="recovery_id" >아이디 찾기</button>
+                            <div class="text-center mt-3"></div>
+                          
+                            <div style="text-align: center; margin-top: 10px; margin-bottom: -10px;">
+                                <div id="loading"></div>
+                            </div>
+  
+                            <div id="result_id"></div>
+  
+                            <br>
+                          
 
-                          <div style="padding-top:10px;" class="row justify-content-md-center">
-                              <button id="find_id" class="btn btn-red" style="opacity: 90%; font-size: 16px;" name="recovery_id"><i class="fas fa-search"></i>&nbsp;&nbsp;아이디찾기</button><br><br>
+                          <div class="card-footer text-center py-3">
+                            <p class="text-warning mb-0" style="font-size:13px">비밀번호를 잊으셨나요?</span>
+                                <a href="{% url 'users:recovery_pw' %}" style="font-size:13px">비밀번호찾기</a></p>
                           </div>
-                          <br>
-                          <div id="result_id"></div>
-                          <span style="color:gray; font-size: 14px;" >&middot;&nbsp;비밀번호를 잊으셨나요?</span>
-                          <a style="text-decoration:underline; color:black; font-size: 14px;" href="{% url 'users:recovery_pw' %}">비밀번호찾기</a>
 
                           <script type="text/javascript">
                               $(document).ready(function () {
@@ -55,8 +68,8 @@
                                           },
                                           success: function (response) {
                                               $('#result_id').replaceWith(
-                                                  '<div id="result_id"><hr><div style="text-align:center;"><span style="font-size: 16px;">입력된 정보로 가입된 아이디는 </span><span style="font-size: 20px; font-weight: bold;" id="result_id">' + response.result_id +
-                                                  '</span><span style="font-size: 16px;"> 입니다.</span></div><hr></div>')
+                                                  '<div id="result_id"><br><div style="text-align:center;"><span style="font-size: 14px;">입력된 정보로 가입된 아이디는 </span><span style="font-size: 18px; font-weight: bold;" id="result_id">' + response.result_id +
+                                                  '</span><span style="font-size: 16px;"> 입니다.</span></div></div>')
                                           },
                                           error: function () {
                                               if (name == "" || email == "") {

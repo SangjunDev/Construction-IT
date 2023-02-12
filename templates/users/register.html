@@ -1,0 +1,180 @@
+{%extends "user_base.html" %}
+{%load static %}
+
+{% block content %}
+
+<!-- Start wrapper-->
+ <div id="wrapper">
+
+	<div class="card card-authentication1 mx-auto my-4">
+		<div class="card-body">
+      <div class="card-content p-2">
+      <div class="text-center">
+      <!--<img src="{% static 'images/logo-icon.png' %}" alt="logo icon">
+      -->
+      </div>
+      <div class="card-title text-uppercase text-center py-3">Sign Up</div>
+      <hr>
+      <form action="" id="signup" method="POST" novalidate>
+        {% csrf_token %}
+
+      <div class="form-group">
+       <label for="input-1" for="{{ form.user_id.id_for_label }}" >아이디</label>
+       {{ form.user_id }}
+      <script type="text/javascript">
+        if (document.getElementsByName('user_id')[0].value != '') {
+            document.getElementsByName('label_user_id')[0].setAttribute('class','active');}
+      </script>
+        {% if form.user_id.errors %}
+          <script type="text/javascript">
+            document.getElementsByName('user_id')[0].setAttribute('class','form-control is-invalid')
+          </script>
+              {% for error in form.user_id.errors %}
+                  <div class="invalid-feedback">
+                      {{ error }}
+                  </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="input-2" for="{{ form.password2.id_for_label }}">비밀번호</label>
+        {{ form.password2 }}
+                          <script type="text/javascript">
+                              if (document.getElementsByName('password2')[0].value != '') {
+                                  document.getElementsByName('label_password2')[0].setAttribute('class', 'active');
+                              }
+                          </script>
+                          {% if form.password2.errors %}
+                          <script type="text/javascript">
+                              document.getElementsByName('password2')[0].setAttribute('class',
+                                  'form-control is-invalid')
+                          </script>
+                          {% for error in form.password2.errors %}
+                          <div style="white-space: nowrap;" class="invalid-feedback">
+                              {{ error }}
+                          </div>
+            {% endfor %}
+            {% endif %}
+       </div>
+
+
+       <div class="form-group">
+        <label for="input-3"  for="{{ form.password1.id_for_label }}">비밀번호 확인</label>
+        {{ form.password1 }}
+                          <script type="text/javascript">
+                              if (document.getElementsByName('password1')[0].value != '') {
+                                  document.getElementsByName('label_password1')[0].setAttribute('class','active');
+                              }
+                          </script>
+                          {% if form.password1.errors %}
+                          <script type="text/javascript">
+                              document.getElementsByName('password1')[0].setAttribute('class',
+                                  'form-control is-invalid')
+                          </script>
+                          {% for error in form.password1.errors %}
+                          <div class="invalid-feedback">
+                              {{ error }}
+                          </div>
+                          {% endfor %}
+                          {% endif %}   
+                          
+                          <small class="form-text mt-2" style="color:#FFFFFFBF">
+                            최소 8개의 숫자와 문자 또는 특수기호를 입력해주세요
+                        </small>
+       </div>
+
+
+      <div class="form-group">
+        <label for="input-4" for="{{ form.name.id_for_label }}">이름</label>
+        {{ form.name }}
+        <script type="text/javascript">
+            if (document.getElementsByName('name')[0].value != '') {
+                document.getElementsByName('label_name')[0].setAttribute('class', 'active');
+            }
+        </script>
+        {% if form.name.errors %}
+        <script type="text/javascript">
+            document.getElementsByName('name')[0].setAttribute('class',
+                'form-control is-invalid')
+        </script>
+        {% for error in form.name.errors %}
+        <div class="invalid-feedback">
+            {{ error }}
+        </div>
+        {% endfor %}
+        {% endif %}
+       </div>
+      
+      <div class="form-group">
+          <label for="input-5" for="{{ form.email.id_for_label }} ">이메일</label>
+          {{ form.email }}
+          <script type="text/javascript">
+              if (document.getElementsByName('email')[0].value != '') {
+                  document.getElementsByName('label_email')[0].setAttribute('class',
+                      'active');
+              }
+          </script>
+          {% if form.email.errors %}
+          <script type="text/javascript">
+              document.getElementsByName('email')[0].setAttribute('class',
+                  'form-control is-invalid')
+          </script>
+          {% for error in form.email.errors %}
+          <div class="invalid-feedback">
+              {{ error }}
+          </div>
+          {% endfor %}
+          {% endif %}
+
+          <small class="form-text mt-2" style="color:#FFFFFFBF">
+           입력하신 메일주소로 본인인증 메일이 전송됩니다
+        </small>
+      </div>
+
+
+      <div class="form-group">
+       <label for="input-6"  for="{{ form.hp.id_for_label }} ">휴대폰 번호</label>
+       {{ form.hp }}
+                  <script type="text/javascript">
+                      if (document.getElementsByName('hp')[0].value != '') {
+                          document.getElementsByName('label_hp')[0].setAttribute('class', 'active');
+                      }
+                  </script>
+                  {% if form.hp.errors %}
+                  <script type="text/javascript">
+                      document.getElementsByName('hp')[0].setAttribute('class',
+                          'form-control is-invalid')
+                  </script>
+                  {% for error in form.hp.errors %}
+                  <div class="invalid-feedback">
+                      {{ error }}
+                  </div>
+                  {% endfor %}
+                  {% endif %}
+
+                  <small class="form-text mt-2" style="color:#FFFFFFBF">
+                    하이픈(-)을 제외한 숫자로 입력해주세요
+                </small>
+      </div>
+
+      <div class="form-group py-2">
+        <div class="icheck-material-white">
+       <input type="checkbox" id="user-checkbox1" checked="">
+       <label for="user-checkbox1">I Agree Terms &amp; Conditions</label>
+       </div>
+      </div>
+      <div class="form-group text-center">
+       <button type="submit" class="btn btn-light px-5">
+        <i class="icon-lock"></i> Register</button>
+     </div>
+     </form>
+    </div>
+    </div>
+
+		  <div class="card-footer text-center py-3">
+		    <p class="text-warning mb-0">Already have an account? <a href="/users/login"> Sign In here</a></p>
+		  </div>
+	     </div>
+    
+       {% endblock %} 

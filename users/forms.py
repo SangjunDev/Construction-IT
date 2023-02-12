@@ -15,14 +15,45 @@ class CsRegisterForm(UserCreationForm):
         super(CsRegisterForm, self).__init__(*args, **kwargs)
 
         self.fields['user_id'].label = '아이디'
-        self.fields['user_id'].widget.attrs.update({     
+        self.fields['user_id'].widget.attrs.update({ 
+            'placeholder': 'Enter Your ID',                                            
             'class': 'form-control',
             'autofocus': False
         })
-        self.fields['password1'].label = '비밀번호'
+        
+        self.fields['password1'].label = '비밀번호 확인'
         self.fields['password1'].widget.attrs.update({
+            'placeholder': 'Enter Password',
             'class': 'form-control',
         })
+        
+        self.fields['password2'].label = '비밀번호'
+        self.fields['password2'].widget.attrs.update({
+            'placeholder': 'Confirm Password',
+            'class': 'form-control',
+        })
+
+
+        self.fields['name'].label = '이름'
+        self.fields['name'].widget.attrs.update({
+            'placeholder': 'Enter Your Name',
+            'class': 'form-control',
+        })
+
+
+        self.fields['email'].label = '이메일'
+        self.fields['email'].widget.attrs.update({
+            'placeholder': 'Enter Your Email Address',
+            'class': 'form-control',
+        })
+
+
+        self.fields['hp'].label = '휴대폰 번호'
+        self.fields['hp'].widget.attrs.update({
+            'placeholder': ' Enter Your Mobile Number',
+            'class': 'form-control',
+        })
+
 
     class Meta:
         model = User
