@@ -1,0 +1,96 @@
+{%extends "user_base.html" %}
+{%load static %}
+
+{% block content %}
+<!-- Start wrapper-->
+<div id="wrapper">
+
+    <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+       <div class="card card-authentication1 mx-auto my-5">
+        <div class="card-body">
+            <div class="card-content p-2">
+                <div class="text-center">
+                    <!--<img src="{% static 'images/logo-icon.png' %}" alt="logo icon">
+         -->
+                </div>
+             <div class="card-title text-uppercase text-center py-3" >아이디 찾기</div>
+                  <div class="row mt-5">
+                      <div class="col-12">
+                          {% csrf_token %}
+                          <!--이름-->
+                          <div class="mb-4 md-form">
+                              <label name="label_name" for="{{ form_id.name.id_for_label }}"><i
+                                  class="zmdi zmdi-account"></i>&nbsp;&nbsp;{{ form_id.name.label }}</label>
+                                  {{ form_id.name }}
+                          </div>
+                          <!--이메일-->
+                          <div class="mb-4 md-form">
+                              <label name="label_email" for="{{ form_id.email.id_for_label }}"><i
+                                      class="fa fa-envelope-open-o"></i>&nbsp;&nbsp;{{ form_id.email.label }}</label>
+                                  {{ form_id.email }}
+                             
+                              <small class="form-text mt-2" style="color:#FFFFFFBF">
+                                등록하신 이름과 메일주소가 일치해야 합니다.
+                            </small>
+                          </div>
+                          
+                           <button id="find_id"   class="btn btn-light btn-block" name="recovery_id" >아이디 찾기</button>
+                            <div class="text-center mt-3"></div>
+                          
+                            <div style="text-align: center; margin-top: 10px; margin-bottom: -10px;">
+                                <div id="loading"></div>
+                            </div>
+  
+                            <div id="result_id"></div>
+  
+                            <br>
+                          
+
+                          <div class="card-footer text-center py-3">
+                            <p class="text-warning mb-0" style="font-size:13px">비밀번호를 잊으셨나요?</span>
+                                <a href="{% url 'users:recovery_pw' %}" style="font-size:13px">비밀번호찾기</a></p>
+                          </div>
+
+                          <script type="text/javascript">
+                              $(document).ready(function () {
+                                  $('#find_id').click(function () {
+                                      var name = $("#form_name").val();
+                                      var email = $("#form_email").val();
+
+                                      $.ajax({
+                                          type: "POST",
+                                          url: "/users/recovery/id/find/",
+                                          dataType: "json",
+                                          data: {
+                                              'name': name,
+                                              'email': email,
+                                              'csrfmiddlewaretoken': '{{csrf_token}}',
+                                          },
+                                          success: function (response) {
+                                              $('#result_id').replaceWith(
+                                                  '<div id="result_id"><br><div style="text-align:center;"><span style="font-size: 14px;">입력된 정보로 가입된 아이디는 </span><span style="font-size: 18px; font-weight: bold;" id="result_id">' + response.result_id +
+                                                  '</span><span style="font-size: 16px;"> 입니다.</span></div></div>')
+                                          },
+                                          error: function () {
+                                              if (name == "" || email == "") {
+                                                  alert('이름와 이메일을 입력해주세요.');
+                                              } else {
+                                                  alert('입력하신 정보가 일치하지 않거나 존재하지 않습니다.');
+                                              }
+                                          },
+                                      });
+                                  })
+                              });
+                          </script>
+                          <!-- No AJAX
+                          {% if result_id %}
+                          <h5>회원님의 아이디는 <strong>{{ result_id }}</strong>입니다.</h5>
+                          {% endif %} -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
