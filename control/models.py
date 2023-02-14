@@ -29,9 +29,9 @@ class topicManage(models.Model):
   class Meta:
     db_table = 'topicmanage'
     verbose_name = '토픽 종합 관리'
-    verbose_name_plural = '토픽 종합 관리'    
+    verbose_name_plural = '토픽 종합 관리'  
+
     
-      
 class Manage(models.Model):
   managenicname = models.CharField(max_length=100, unique=True, verbose_name='별칭', default = '')
   
@@ -58,4 +58,3 @@ class Manage(models.Model):
     verbose_name = '회원별 토픽 관리'
     verbose_name_plural = '회원별 토픽 관리'
 
-      

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.sessions.models import Session
 from django.contrib.auth import get_user_model
 
@@ -14,4 +14,4 @@ def view_manage(request):
 
         return render(request, 'blog/index.html', context)
     else:
-        return render(request, 'login.html')
+        return redirect('/users/login')

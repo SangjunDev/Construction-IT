@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('pub',views.pub, name='pub'),
-    path('publish', views.publish, name='publish')
+    path('publish', views.publish, name='publish'),
+    #path('status', views.status, name='status')
 ]

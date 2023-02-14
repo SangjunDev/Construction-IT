@@ -2,53 +2,65 @@
 
 {% block content %}
 
-
-
-
+<!--Start Dashboard Content-->
 <div class="content-wrapper">
   <div class="container-fluid">
 
-<!--Start Dashboard Content-->
+   <div class="card mt-3">
+    <div class="card-content">
+        <div class="row row-group m-0">
+		
+            <div class="col-12 col-lg-6 col-xl-3 border-light">
+                <div class="card-body">
+                  <div style =" font-size:20px; text-align:center;">공용부&nbsp;&nbsp;필로티&nbsp;&nbsp;조명 <br> 무선&nbsp;&nbsp;제어&nbsp;&nbsp;시스템
+                  </div>
 
-<div class="row">
-   <div class="col-12 col-lg-8 col-xl-8">
-    <div class="card">
-   <div class="card-header" style =" font-size:20px; text-align:center;">공용부&nbsp;&nbsp;필로티&nbsp;&nbsp;조명 <br> 무선&nbsp;&nbsp;제어&nbsp;&nbsp;시스템
-     
-   </div>
-   {% for manage in manages %}
-    
+                </div>
+            </div>
 
-   <div class="row m-0 row-group text-center border-top border-light-3">
-     <div class="col-12 col-lg-12">
-      <br>     
-     
-     <div class="col-12 col-lg-12">
-       <div class="p-3">
-        <h4 class="fw-bold">위치:{{manage.installationsite.sitenickname}}</h4>
-        <h4 class="fw-bold">설치 갯수:{{ manage.maintopic_count }}</h4>
-       </div>
-     </div>
+            {% for manage in manages %}    
+            <div class="col-12 col-lg-6 col-xl-3 border-light">
+                <div class="card-body">
+                  <div style =" font-size:15px; ">
+                    위치: {{manage.installationsite.sitenickname}} <br>
+                    설치 개수: {{ manage.maintopic_count }}
+                  </div>
+                </div>
+            </div>
 
-     {% for topic in manage.topic.all %}
-  <h4 class="fw-bold">LED</h4>
-											<h6 class="fw-bold mt-3 mb-0">
-												<label class="switch">
-                          <input type="hidden" id="topic{{topic.id}}" name="topic" value="{{topic.maintopic}}/{{topic.subtopic)">
-                          <input type="hidden" id="message{{topic.id}}" name="message" value=""> 
-													<input type="checkbox" onclick = "led({{topic.id}})">
-													<span class="slider round"></span>
-													
-												</label>
-												
-											</h6>
-    {% endfor %}
-   {% endfor %}
+                
+            <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <div class="row">
+                  {% for topic in manage.topic.all %}
+                  <div class="col-4">
+
+                    <div style =" font-size:15px; text-align:center;"> 
+                    <h6 class="fw-bold mt-0 mb-0">
+                      <label class="switch">
+                      <input type="hidden" id="topic{{topic.id}}" name="topic" value="{{topic.maintopic}}/{{topic.subtopic}}">
+                      <input type="hidden" id="message{{topic.id}}" name="message" value=""> 
+                      <input type="checkbox" id="check{{topic.id}}" onclick="led({{topic.id}})">
+
+                      <span class="slider round"></span>
+                      </label>
+                    </h6>
+                    LED {{topic.id}}
+                  </div> <br>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+          </div>
+
+            {% endfor %}
 
 
-     </div>
-   </div>
-
+        </div>
+    </div>
+ </div>  
+   
+   
   </div>
  </div>
     <!--End Dashboard Content-->
@@ -61,32 +73,7 @@
   <!-- End container-fluid-->
   
   </div>
-
-  <script>
-    function led(topicId) {
-
-      var checkbox = document.querySelector('input[type="checkbox"]');
-
-      var message = checkbox.checked ? "led_on" : "led_off";
-      
-      var topic = document.getElementById("topic" + topicId).value;
-
-      var message = document.getElementById("message" + topicId).value;
-
-      var csrf_token = getCookie("csrftoken");
-      
-      $.ajax({
-        type: "POST",
-        url: "/mqtt/publish",
-        data: {
-          topic: topic,
-          message: message
-        },
-        headers: {
-          "X-CSRFToken": csrf_token
-        },
-      });
-    }
+  <script type="text/javascript" >
 
     function getCookie(name) {
       var cookieValue = null;
@@ -103,6 +90,45 @@
       return cookieValue;
     }
 
-  </script>
+    function led(topicId) {
+      var checkbox = document.querySelector('input[id="check' + topicId + '"]');
 
+      var message = checkbox.checked ? "led_on" : "led_off";
+  
+      var topic = document.getElementById("topic" + topicId).value;
+  
+      document.getElementById("message" + topicId).value = message;
+  
+      var csrf_token = getCookie("csrftoken");
+      
+      $.ajax({
+        type: "POST",
+        url: "/mqtt/publish",
+        data: {
+          topic: topic,
+          message: message
+        },
+        headers: {
+          "X-CSRFToken": csrf_token
+        },
+      });
+    }
+
+
+    $(document).ready(function() {
+      $.ajax({
+        type: "POST",
+        url: "/mqtt/status",
+        data: {},
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken")
+        },
+        success: function(response) {
+          // Loop through each topic and update the corresponding checkbox state
+        }
+      });
+    });
+
+  </script>
+  
 {% endblock %} 
