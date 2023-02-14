@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            {% for manage in manages %}    
+            {% for manage in manages%}    
             <div class="col-12 col-lg-6 col-xl-3 border-light">
                 <div class="card-body">
                   <div style =" font-size:15px; ">
@@ -28,11 +28,20 @@
                 </div>
             </div>
 
+            <div class="col-12 col-lg-6 col-xl-3 border-light">
+              <div class="card-body">
+                <div style =" font-size:15px; text-align:center;">
+                  <button class="btn btn-light btn-round px-5 mr-4" onclick="turnAllLedsOn()"> All LEDs On</button>
+                  <button class="btn btn-light btn-round px-5" onclick="turnAllLedsOff()"> All LEDs Off</button>
+                </div>
+              </div>
+          </div>
+
                 
             <div class="col-12 col-lg-6 col-xl-3 border-light">
               <div class="card-body">
                 <div class="row">
-                  {% for topic in manage.topic.all %}
+                  {% for topic in manage.topic.all|dictsort:'id' %}
                   <div class="col-4">
 
                     <div style =" font-size:15px; text-align:center;"> 
@@ -128,6 +137,22 @@
         }
       });
     });
+
+    function turnAllLedsOn() {
+  const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+  allCheckboxes.forEach((checkbox) => {
+    checkbox.checked = true;
+    led(checkbox.id.replace("check", ""));
+  });
+}
+
+function turnAllLedsOff() {
+  const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+  allCheckboxes.forEach((checkbox) => {
+    checkbox.checked = false;
+    led(checkbox.id.replace("check", ""));
+  });
+}
 
   </script>
   

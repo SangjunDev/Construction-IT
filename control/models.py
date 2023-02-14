@@ -15,9 +15,6 @@ class InstallationSite(models.Model):
     verbose_name = '설치 현장'
     verbose_name_plural = '설치 현장'
 
-
-
-
 class topicManage(models.Model):
   maintopic = models.CharField(max_length = 50,verbose_name='메인 토픽')
   subtopic = models.CharField(max_length = 50 , unique = True , verbose_name = '서브 토픽')
@@ -29,7 +26,7 @@ class topicManage(models.Model):
   class Meta:
     db_table = 'topicmanage'
     verbose_name = '토픽 종합 관리'
-    verbose_name_plural = '토픽 종합 관리'  
+    verbose_name_plural = '토픽 종합 관리'
 
     
 class Manage(models.Model):
